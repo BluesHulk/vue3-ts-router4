@@ -16,6 +16,5 @@
   background: #282c34;
   z-index: 1000;
   transition: left 0.25s;
-  color: #fff;
 }
 </style>

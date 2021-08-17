@@ -32,6 +32,5 @@ export default defineComponent({
   position: relative;
   box-sizing: border-box;
   padding-top: 50px;
-  min-height: calc(100vh - 100px);
 }
 </style>

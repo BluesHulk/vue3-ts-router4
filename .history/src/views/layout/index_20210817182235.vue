@@ -24,14 +24,5 @@ export default defineComponent({
 });
 </script>
 <style lang="scss" scoped>
-/* 主体内容 */
-.main-container {
-  min-height: 100%;
-  margin-left: 200px;
-  transition: margin-left 0.25s;
-  position: relative;
-  box-sizing: border-box;
-  padding-top: 50px;
-  min-height: calc(100vh - 100px);
-}
+
 </style>

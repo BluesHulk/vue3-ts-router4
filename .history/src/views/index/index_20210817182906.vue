@@ -35,7 +35,6 @@ export default {
 <style lang="scss" scoped>
 .layout-index {
   .content {
-    margin-top: 200px;
   }
 }
 </style>
