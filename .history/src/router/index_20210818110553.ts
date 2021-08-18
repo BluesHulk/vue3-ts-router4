@@ -186,29 +186,27 @@ function getPageTitle(pageTitle: unknown) {
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
-
   if (to.path === '/login' || to.path === '/register' || to.path === '/404') {
     next()
   }
   else {
     if (hasToken) {
-
-      if (menuList && menuList.length) {
+      if (menuList.length) {
         if (to.path === '/login') {
           next({ path: '/' })
-        } else {
-          next()
-        }
+        } else next()
       } else {
-        console.log(hasToken, to)
-
-        if (to.path == '/module') {
-          await store.dispatch("getUserInfo")
-          next()
-        } else {
-          await store.dispatch("concatRoutes").then(res => {
+        try {
+          if (to.path == '/module') {
+            await store.dispatch("getUserInfo")
             next()
-          })
+          } else {
+            await store.dispatch("concatRoutes").then(res => {
+              next()
+            })
+          }
+        } catch (err) {
+          console.log(err)
         }
 
       }

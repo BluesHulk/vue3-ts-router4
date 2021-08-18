@@ -55,9 +55,7 @@ export default {
                 const { data } = respon;
                 if (data && data.length > 1) {
                   console.log(router);
-                  await router.push({
-                    name: "module",
-                  });
+                  await router.push("/module");
                 } else {
                   await store.dispatch("setIndex", 0);
                   await store.dispatch("setlhSysCode", data[0].code);
@@ -81,7 +79,7 @@ export default {
       person: {},
     });
     const toRefsData = toRefs(data);
-    console.log(router);
+
     return {
       ...toRefsData,
       encryptByDES,

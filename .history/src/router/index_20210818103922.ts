@@ -183,6 +183,7 @@ function getPageTitle(pageTitle: unknown) {
   if (titleReverse) newTitles = newTitles.reverse()
   return newTitles.join('-')
 }
+debugger
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
@@ -192,23 +193,22 @@ router.beforeEach(async (to, from, next) => {
   }
   else {
     if (hasToken) {
-
-      if (menuList && menuList.length) {
+      if (menuList.length) {
         if (to.path === '/login') {
           next({ path: '/' })
-        } else {
-          next()
-        }
+        } else next()
       } else {
-        console.log(hasToken, to)
-
-        if (to.path == '/module') {
-          await store.dispatch("getUserInfo")
-          next()
-        } else {
-          await store.dispatch("concatRoutes").then(res => {
+        try {
+          if (to.path == '/module') {
+            await store.dispatch("getUserInfo")
             next()
-          })
+          } else {
+            await store.dispatch("concatRoutes").then(res => {
+              next()
+            })
+          }
+        } catch (err) {
+          console.log(err)
         }
 
       }
