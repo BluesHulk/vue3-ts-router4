@@ -8,6 +8,7 @@ const Dict = () => import("@/views/system/dictionary/index.vue")
 const Maintain = () => import("@/views/waybill/maintain/index.vue")
 const Signfor = () => import("@/views/waybill/signfor/index.vue")
 const Layout = () => import("@/views/layout/index.vue")
+
 const asyncRouter = [
   {
     path: "/",
@@ -123,6 +124,8 @@ const asyncRouter = [
       },
     ],
   },
+
+
 ]
 
 // const _addRoute = (parentName: string | symbol, routes: Array<RouteRecordRaw>) => {

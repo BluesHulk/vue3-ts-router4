@@ -60,7 +60,7 @@ module.exports = {
   // token在localStorage、sessionStorage、cookie存储的key的名称
   tokenTableName: "admin-token",
   // token存储位置localStorage sessionStorage cookie
-  storage: "sessionStorage",
+  storage: "localStorage",
   // token失效回退到登录页时是否记录本次的路由（是否记录当前tab页）
   recordRoute: true,
   // 是否开启logo，不显示时设置false，请填写src/icon路径下的图标名称

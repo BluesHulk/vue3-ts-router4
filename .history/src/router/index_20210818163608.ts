@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocationNormalized, RouteRecordName } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
 import store from "../store";
 import { getToken, getRouter } from '../utils/token.js'
 import { toLoginRoute } from '@/utils/routes.js'
@@ -15,8 +15,6 @@ const Dept = () => import("@/views/system/organizes/index.vue")
 const Dict = () => import("@/views/system/dictionary/index.vue")
 const Maintain = () => import("@/views/waybill/maintain/index.vue")
 const Signfor = () => import("@/views/waybill/signfor/index.vue")
-const Fzt = () => import("@/views/error/error403.vue")
-const Fzf = () => import("@/views/error/error404.vue")
 const routes = [
   {
     path: "/login",
@@ -42,24 +40,6 @@ const routes = [
     component: Module,
     meta: {
       title: "引导页",
-      iShow: false
-    },
-  },
-  {
-    path: "/error403",
-    name: "error403",
-    component: Fzt,
-    meta: {
-      title: "error403",
-      iShow: false
-    },
-  },
-  {
-    path: "/error404",
-    name: "error404",
-    component: Fzf,
-    meta: {
-      title: "error404",
       iShow: false
     },
   },
@@ -206,8 +186,8 @@ function getPageTitle(pageTitle: unknown) {
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
-
-  console.log(to.matched, 'matched')
+  const matched = to.matched
+  // else {
   console.log(router)
   console.log(store.getters.router)
 
@@ -222,7 +202,7 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch("getUserInfo")
           next()
         } else {
-          if (to.matched.length == 0) {
+          if (matched && matched.length == 0) {
             next({ path: "/error404" })
           } else {
             next()
@@ -230,7 +210,8 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     } else {
-      if (to.matched.length > 0) {
+      console.log(hasToken, to)
+      if (matched && matched.length > 0) {
         if (to.path == '/module') {
           await store.dispatch("getUserInfo")
           next()
@@ -242,8 +223,7 @@ router.beforeEach(async (to, from, next) => {
             next()
           })
         }
-      }
-      else {
+      } else {
         next({ path: "/error404" })
       }
 
@@ -263,6 +243,7 @@ router.beforeEach(async (to, from, next) => {
   // }
 })
 router.afterEach((to, from) => {
+  console.log(to, from);
   document.title = getPageTitle(to.meta.title)
   store.commit('SET_CURRENT_MENU', to.path)
 });

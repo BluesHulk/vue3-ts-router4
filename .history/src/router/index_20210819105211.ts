@@ -206,8 +206,17 @@ function getPageTitle(pageTitle: unknown) {
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
-
+  const name = to.fullPath
+  const stateRouter = store.getters.router
+  const routerName: (RouteRecordName | null | undefined)[] = []
+  stateRouter.map((item: { path: any; }) => {
+    routerName.push(item.path)
+  })
   console.log(to.matched, 'matched')
+  console.log(routerName, name)
+  const hasName = routerName.includes(name)
+  // else {
+  console.log(hasName, 'hasName')
   console.log(router)
   console.log(store.getters.router)
 
@@ -230,6 +239,7 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     } else {
+      console.log(hasToken, to)
       if (to.matched.length > 0) {
         if (to.path == '/module') {
           await store.dispatch("getUserInfo")

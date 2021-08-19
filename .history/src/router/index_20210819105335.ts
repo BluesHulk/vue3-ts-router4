@@ -230,6 +230,7 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     } else {
+      console.log(hasToken, to)
       if (to.matched.length > 0) {
         if (to.path == '/module') {
           await store.dispatch("getUserInfo")

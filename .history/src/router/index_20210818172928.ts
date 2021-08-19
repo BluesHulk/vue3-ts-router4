@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocationNormalized, RouteRecordName } from "vue-router";
+import { createRouter, createWebHashHistory, RouteRecordRaw, RouteLocationNormalized } from "vue-router";
 import store from "../store";
 import { getToken, getRouter } from '../utils/token.js'
 import { toLoginRoute } from '@/utils/routes.js'
@@ -194,6 +194,7 @@ const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
+debugger
 function getPageTitle(pageTitle: unknown) {
   const titleReverse = false
   const title = ''
@@ -206,8 +207,12 @@ function getPageTitle(pageTitle: unknown) {
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
-
-  console.log(to.matched, 'matched')
+  const name = to.name
+  const stateRouter = store.getters.router
+  stateRouter.map((item: { name: any; }) => {
+    return to.includes(item.name);
+  })
+  // else {
   console.log(router)
   console.log(store.getters.router)
 
@@ -222,7 +227,7 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch("getUserInfo")
           next()
         } else {
-          if (to.matched.length == 0) {
+          if (matched && matched.length == 0) {
             next({ path: "/error404" })
           } else {
             next()
@@ -230,7 +235,8 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     } else {
-      if (to.matched.length > 0) {
+      console.log(hasToken, to)
+      if (matched && matched.length > 0) {
         if (to.path == '/module') {
           await store.dispatch("getUserInfo")
           next()
@@ -242,8 +248,7 @@ router.beforeEach(async (to, from, next) => {
             next()
           })
         }
-      }
-      else {
+      } else {
         next({ path: "/error404" })
       }
 
@@ -263,6 +268,7 @@ router.beforeEach(async (to, from, next) => {
   // }
 })
 router.afterEach((to, from) => {
+  console.log(to, from);
   document.title = getPageTitle(to.meta.title)
   store.commit('SET_CURRENT_MENU', to.path)
 });

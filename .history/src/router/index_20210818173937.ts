@@ -194,6 +194,7 @@ const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
 });
+debugger
 function getPageTitle(pageTitle: unknown) {
   const titleReverse = false
   const title = ''
@@ -206,8 +207,15 @@ function getPageTitle(pageTitle: unknown) {
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
-
-  console.log(to.matched, 'matched')
+  const name = to.name
+  const stateRouter = store.getters.router
+  const routerName: (RouteRecordName | null | undefined)[] = []
+  stateRouter.map((item: { name: any; }) => {
+    routerName.push(item.name)
+  })
+  const hasName = routerName.includes(name)
+  // else {
+  console.log(hasName, 'hasName')
   console.log(router)
   console.log(store.getters.router)
 
@@ -222,7 +230,7 @@ router.beforeEach(async (to, from, next) => {
           await store.dispatch("getUserInfo")
           next()
         } else {
-          if (to.matched.length == 0) {
+          if (!hasName) {
             next({ path: "/error404" })
           } else {
             next()
@@ -230,32 +238,33 @@ router.beforeEach(async (to, from, next) => {
         }
       }
     } else {
-      if (to.matched.length > 0) {
-        if (to.path == '/module') {
-          await store.dispatch("getUserInfo")
+      console.log(hasToken, to)
+      // if (hasName) {
+      if (to.path == '/module') {
+        await store.dispatch("getUserInfo")
+        next()
+      } else if (to.path == '/login') {
+        await store.dispatch("getUserInfo")
+        next({ path: '/module' })
+      } else {
+        await store.dispatch("concatRoutes").then(res => {
           next()
-        } else if (to.path == '/login') {
-          await store.dispatch("getUserInfo")
-          next({ path: '/module' })
-        } else {
-          await store.dispatch("concatRoutes").then(res => {
-            next()
-          })
-        }
+        })
       }
+    } 
       else {
-        next({ path: "/error404" })
-      }
-
-
+      next({ path: "/error404" })
     }
-    // next()
+
 
   }
+  // next()
+
+}
   else {
-    if (to.path === '/login' || to.path === '/register' || to.path === '/404') {
-      next()
-    }
+    if(to.path === '/login' || to.path === '/register' || to.path === '/404') {
+  next()
+}
     // next()
   }
 
@@ -263,6 +272,18 @@ router.beforeEach(async (to, from, next) => {
   // }
 })
 router.afterEach((to, from) => {
+  console.log(to, from);
+  // const name = to.name
+  // const stateRouter = store.getters.router
+  // const routerName: (RouteRecordName | null | undefined)[] = []
+  // stateRouter.map((item: { name: any; }) => {
+  //   routerName.push(item.name)
+  // })
+  // const hasName = routerName.includes(name)
+  // console.log(hasName)
+  // if (!hasName) {
+  //   next({ path: "/error404" })
+  // }
   document.title = getPageTitle(to.meta.title)
   store.commit('SET_CURRENT_MENU', to.path)
 });
