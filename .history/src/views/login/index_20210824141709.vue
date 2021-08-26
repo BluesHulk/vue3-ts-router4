@@ -11,7 +11,11 @@
       <el-input v-model="formState.username" autocomplete="off"></el-input>
     </el-form-item>
     <el-form-item label="密码" prop="password">
-      <el-input v-model="formState.password" autocomplete="off"></el-input>
+      <el-input
+        type="password"
+        v-model="formState.password"
+        autocomplete="off"
+      ></el-input>
     </el-form-item>
 
     <el-form-item>
@@ -43,8 +47,8 @@ export default {
     const router = useRouter();
     const store = useStore();
     const formState: FormState = reactive({
-      username: "xadmin@laihui",
-      password: "123456",
+      username: "",
+      password: "",
     });
     const encryptByDES = (message: string, key: string) => {
       var keyHex = CryptoJS.enc.Utf8.parse(key);
@@ -54,13 +58,14 @@ export default {
       });
       return encrypted.toString();
     };
+    const cipherText = encryptByDES(
+      formState.password,
+      "4d386d78-e565-43ff-a04f-7caedbdd86f0"
+    );
 
     const data: DataProps = reactive({
       loginTap: () => {
-        const cipherText = encryptByDES(
-          formState.password,
-          "4d386d78-e565-43ff-a04f-7caedbdd86f0"
-        );
+        debugger;
         store
           .dispatch("login", {
             username: formState.username.split("@")[0],
@@ -96,9 +101,11 @@ export default {
       },
     });
     const toRefsData = toRefs(data);
+    console.log(router);
     return {
       ...toRefsData,
       encryptByDES,
+      cipherText,
       formState,
     };
   },

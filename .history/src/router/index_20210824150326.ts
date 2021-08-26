@@ -197,6 +197,25 @@ const routes = [
   },
 ];
 
+// const redirectPath = (() => {
+//   return getToken() ? '/index' : '/login'
+// })()
+// export const constantRoutes = [
+//   {
+//     path: "/login",
+//     name: "login",
+//     meta: {
+//       title: "首页"
+//     },
+//     component: Login,
+//   },
+//   {
+//     path: "/",
+//     name: "layout",
+//     component: Layout,
+//     redirect: "/login",
+//   },
+// ]
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
@@ -248,6 +267,7 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 router.afterEach((to, from) => {
+  console.log(to, from);
   document.title = getPageTitle(to.meta.title)
   store.commit('SET_CURRENT_MENU', to.path)
 });

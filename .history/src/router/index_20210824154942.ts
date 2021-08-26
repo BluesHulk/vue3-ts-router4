@@ -197,6 +197,25 @@ const routes = [
   },
 ];
 
+// const redirectPath = (() => {
+//   return getToken() ? '/index' : '/login'
+// })()
+// export const constantRoutes = [
+//   {
+//     path: "/login",
+//     name: "login",
+//     meta: {
+//       title: "首页"
+//     },
+//     component: Login,
+//   },
+//   {
+//     path: "/",
+//     name: "layout",
+//     component: Layout,
+//     redirect: "/login",
+//   },
+// ]
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,

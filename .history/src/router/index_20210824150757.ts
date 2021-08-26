@@ -197,6 +197,25 @@ const routes = [
   },
 ];
 
+// const redirectPath = (() => {
+//   return getToken() ? '/index' : '/login'
+// })()
+// export const constantRoutes = [
+//   {
+//     path: "/login",
+//     name: "login",
+//     meta: {
+//       title: "首页"
+//     },
+//     component: Login,
+//   },
+//   {
+//     path: "/",
+//     name: "layout",
+//     component: Layout,
+//     redirect: "/login",
+//   },
+// ]
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
@@ -213,6 +232,7 @@ function getPageTitle(pageTitle: unknown) {
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
+  console.log(store.getters.currentMenu, 'currentMenu')
   if (hasToken) {
 
     if (menuList && menuList.length) {
@@ -248,8 +268,10 @@ router.beforeEach(async (to, from, next) => {
   }
 })
 router.afterEach((to, from) => {
+  console.log(to, from);
   document.title = getPageTitle(to.meta.title)
   store.commit('SET_CURRENT_MENU', to.path)
+  console.log(store.getters.currentMenu, 'currentMenu')
 });
 // console.log(router, 'add router')
 export default router;

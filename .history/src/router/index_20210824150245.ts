@@ -197,6 +197,25 @@ const routes = [
   },
 ];
 
+// const redirectPath = (() => {
+//   return getToken() ? '/index' : '/login'
+// })()
+// export const constantRoutes = [
+//   {
+//     path: "/login",
+//     name: "login",
+//     meta: {
+//       title: "首页"
+//     },
+//     component: Login,
+//   },
+//   {
+//     path: "/",
+//     name: "layout",
+//     component: Layout,
+//     redirect: "/login",
+//   },
+// ]
 const router = createRouter({
   history: createWebHashHistory(process.env.BASE_URL),
   routes,
@@ -213,6 +232,7 @@ function getPageTitle(pageTitle: unknown) {
 router.beforeEach(async (to, from, next) => {
   let hasToken = store.getters.token
   const menuList = JSON.parse(getRouter());
+  // else {
   if (hasToken) {
 
     if (menuList && menuList.length) {
@@ -228,6 +248,7 @@ router.beforeEach(async (to, from, next) => {
         next()
       } else if (to.path == '/login') {
         await store.dispatch("getUserInfo")
+        // next({ path: '/module' })
         ElMessage.warning({
           message: '已登录,不能返回登录页',
           type: 'warning'
@@ -245,9 +266,12 @@ router.beforeEach(async (to, from, next) => {
     if (to.path === '/login' || to.path === '/register' || to.path === '/404') {
       next()
     }
+    // next()
   }
+  // }
 })
 router.afterEach((to, from) => {
+  console.log(to, from);
   document.title = getPageTitle(to.meta.title)
   store.commit('SET_CURRENT_MENU', to.path)
 });

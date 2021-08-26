@@ -43,8 +43,8 @@ export default {
     const router = useRouter();
     const store = useStore();
     const formState: FormState = reactive({
-      username: "xadmin@laihui",
-      password: "123456",
+      username: "",
+      password: "",
     });
     const encryptByDES = (message: string, key: string) => {
       var keyHex = CryptoJS.enc.Utf8.parse(key);
@@ -96,6 +96,7 @@ export default {
       },
     });
     const toRefsData = toRefs(data);
+    console.log(router);
     return {
       ...toRefsData,
       encryptByDES,

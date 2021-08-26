@@ -59,10 +59,7 @@ export default {
     const store = useStore();
 
     const routers = store.getters.router;
-    // var activepath = store.getters.currentMenu;
-    const activepath = computed(() => {
-      return store.getters.currentMenu;
-    });
+    const activepath = store.getters.currentMenu;
     const handleOpen = (key: any, keyPath: any) => {
       console.log(key, keyPath);
     };
@@ -76,8 +73,10 @@ export default {
     console.log(router, "router22221");
     onBeforeRouteUpdate((to) => {
       console.log(to.fullPath, "=====");
+      // activepath = to.fullPath;
+       console.log(activepath, activepath
     });
-    // console.log(activepath, "activepath");
+    console.log(activepath, "activepath");
     return {
       routers,
       menuList,

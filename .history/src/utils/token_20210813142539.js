@@ -67,8 +67,6 @@ export function removeToken() {
 export function getlhUserName() {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.getItem("lhUserName");
-    } else {
       return sessionStorage.getItem("lhUserName");
     }
   } else {
@@ -84,13 +82,7 @@ export function getlhUserName() {
 export function setlhUserName(lhUserName) {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.setItem("lhUserName", lhUserName);
-    } else if ("sessionStorage" === storage) {
       return sessionStorage.setItem("lhUserName", lhUserName);
-    } else if ("cookie" === storage) {
-      return cookie.set("lhUserName", lhUserName);
-    } else {
-      return localStorage.setItem("lhUserName", lhUserName);
     }
   } else {
     return localStorage.setItem("lhUserName", lhUserName);
@@ -126,15 +118,6 @@ export function getlhSysCode() {
     if ("localStorage" === storage) {
       return sessionStorage.getItem("lhSysCode");
     }
-    if ("localStorage" === storage) {
-      return localStorage.getItem("lhSysCode");
-    } else if ("sessionStorage" === storage) {
-      return sessionStorage.getItem("lhSysCode");
-    } else if ("cookie" === storage) {
-      return cookie.get("lhSysCode");
-    } else {
-      return localStorage.getItem("lhSysCode");
-    }
   } else {
     return localStorage.getItem("lhSysCode");
   }
@@ -148,13 +131,7 @@ export function getlhSysCode() {
 export function setlhSysCode(lhSysCode) {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.setItem("lhSysCode", lhSysCode);
-    } else if ("sessionStorage" === storage) {
       return sessionStorage.setItem("lhSysCode", lhSysCode);
-    } else if ("cookie" === storage) {
-      return cookie.set("lhSysCode", lhSysCode);
-    } else {
-      return localStorage.setItem("lhSysCode", lhSysCode);
     }
   } else {
     return localStorage.setItem("lhSysCode", lhSysCode);
@@ -188,13 +165,7 @@ export function removelhSysCode() {
 export function getlhCoCode() {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.getItem("lhCoCode");
-    } else if ("sessionStorage" === storage) {
       return sessionStorage.getItem("lhCoCode");
-    } else if ("cookie" === storage) {
-      return cookie.get("lhCoCode");
-    } else {
-      return localStorage.getItem("lhCoCode");
     }
   } else {
     return localStorage.getItem("lhCoCode");
@@ -207,22 +178,9 @@ export function getlhCoCode() {
  * @returns {void|*}
  */
 export function setlhCoCode(lhCoCode) {
-  // if (storage) {
-  //   if ("localStorage" === storage) {
-  //     return sessionStorage.setItem("lhCoCode", lhCoCode);
-  //   }
-  // } else {
-  //   return localStorage.setItem("lhCoCode", lhCoCode);
-  // }
   if (storage) {
     if ("localStorage" === storage) {
       return sessionStorage.setItem("lhCoCode", lhCoCode);
-    } else if ("sessionStorage" === storage) {
-      return sessionStorage.setItem("lhCoCode", lhCoCode);
-    } else if ("cookie" === storage) {
-      return cookie.set("lhCoCode", lhCoCode);
-    } else {
-      return localStorage.setItem("lhCoCode", lhCoCode);
     }
   } else {
     return localStorage.setItem("lhCoCode", lhCoCode);
@@ -256,13 +214,7 @@ export function removelhCoCode() {
 export function getlhCoCodeName() {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.getItem("lhCoCodeName");
-    } else if ("sessionStorage" === storage) {
       return sessionStorage.getItem("lhCoCodeName");
-    } else if ("cookie" === storage) {
-      return cookie.get("lhCoCodeName");
-    } else {
-      return localStorage.getItem("lhCoCodeName");
     }
   } else {
     return localStorage.getItem("lhCoCodeName");
@@ -278,15 +230,6 @@ export function setlhCoCodeName(lhCoCodeName) {
   if (storage) {
     if ("localStorage" === storage) {
       return sessionStorage.setItem("lhCoCodeName", lhCoCodeName);
-    }
-    if ("localStorage" === storage) {
-      return sessionStorage.setItem("lhCoCodeName", lhCoCodeName);
-    } else if ("sessionStorage" === storage) {
-      return sessionStorage.setItem("lhCoCodeName", lhCoCodeName);
-    } else if ("cookie" === storage) {
-      return cookie.set("lhCoCodeName", lhCoCodeName);
-    } else {
-      return localStorage.setItem("lhCoCodeName", lhCoCodeName);
     }
   } else {
     return localStorage.setItem("lhCoCodeName", lhCoCodeName);
@@ -332,8 +275,6 @@ export function removeRefreshToken() {
 export function getLocalTime() {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.getItem("LocalTime");
-    } else {
       return sessionStorage.getItem("LocalTime");
     }
   } else {
@@ -349,8 +290,6 @@ export function getLocalTime() {
 export function setLocalTime(LocalTime) {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.setItem("LocalTime", LocalTime);
-    } else {
       return sessionStorage.setItem("LocalTime", LocalTime);
     }
   } else {
@@ -385,8 +324,6 @@ export function removeLocalTime() {
 export function getTimeStep() {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.getItem("TimeStep");
-    } else {
       return sessionStorage.getItem("TimeStep");
     }
   } else {
@@ -402,8 +339,6 @@ export function getTimeStep() {
 export function setTimeStep(TimeStep) {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.setItem("TimeStep", TimeStep);
-    } else {
       return sessionStorage.setItem("TimeStep", TimeStep);
     }
   } else {
@@ -438,8 +373,6 @@ export function removeTimeStep() {
 export function getButtonsKey() {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.getItem("BUTTONS");
-    } else {
       return sessionStorage.getItem("BUTTONS");
     }
   } else {
@@ -455,8 +388,6 @@ export function getButtonsKey() {
 export function setButtonsKey(ButtonsKey) {
   if (storage) {
     if ("localStorage" === storage) {
-      return localStorage.setItem("BUTTONS", ButtonsKey);
-    } else {
       return sessionStorage.setItem("BUTTONS", ButtonsKey);
     }
   } else {

@@ -7,11 +7,8 @@ const Dept = () => import("@/views/system/organizes/index.vue")
 const Dict = () => import("@/views/system/dictionary/index.vue")
 const Maintain = () => import("@/views/waybill/maintain/index.vue")
 const Signfor = () => import("@/views/waybill/signfor/index.vue")
-const Order = () => import("@/views/procurement/order/index.vue")
-const Play = () => import("@/views/procurement/play/index.vue")
-const Norelease = () => import("@/views/procurement/norelease/index.vue")
-
 const Layout = () => import("@/views/layout/index.vue")
+
 const asyncRouter = [
   {
     path: "/",
@@ -91,7 +88,6 @@ const asyncRouter = [
       },
     ],
   },
-
   // 运单管理
   {
     path: '/waybill',
@@ -128,53 +124,8 @@ const asyncRouter = [
       },
     ],
   },
-  // 采购管理
-  {
-    path: '/procurement',
-    name: 'procurement',
-    component: Layout,
-    redirect: '/procurement/order',
-    meta: {
-      title: '采购管理',
-      icon: 'icon-icon_caigouguanli_choose',
-      iShow: true,
-    },
-    children: [
-      {
-        path: '/order',
-        name: 'order',
-        component: Order,
-        meta: {
-          title: '采购订单',
-          icon: 'admin-line',
-          iShow: true,
-          level: 2,
-        },
-      },
-      {
-        path: '/play',
-        name: 'play',
-        component: Play,
-        meta: {
-          title: '采购派车计划',
-          icon: 'menu-2-fill',
-          iShow: true,
-          level: 2,
-        },
-      },
-      {
-        path: '/sendorder',
-        name: 'sendorder',
-        component: Norelease,
-        meta: {
-          title: '派车单管理',
-          icon: 'user-3-line',
-          iShow: true,
-          level: 2,
-        },
-      },
-    ],
-  },
+
+
 ]
 
 // const _addRoute = (parentName: string | symbol, routes: Array<RouteRecordRaw>) => {

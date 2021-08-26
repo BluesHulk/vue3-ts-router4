@@ -59,10 +59,7 @@ export default {
     const store = useStore();
 
     const routers = store.getters.router;
-    // var activepath = store.getters.currentMenu;
-    const activepath = computed(() => {
-      return store.getters.currentMenu;
-    });
+    var activepath = store.getters.currentMenu;
     const handleOpen = (key: any, keyPath: any) => {
       console.log(key, keyPath);
     };
@@ -76,6 +73,12 @@ export default {
     console.log(router, "router22221");
     onBeforeRouteUpdate((to) => {
       console.log(to.fullPath, "=====");
+      // activepath = to.fullPath;
+      // store.commit("SET_CURRENT_MENU", to.fullPath);
+      // activepath = computed(() => {
+      //   return to.fullPath;
+      // });
+      // console.log(activepath, "activepath");
     });
     // console.log(activepath, "activepath");
     return {
